@@ -1,0 +1,116 @@
+export const tickets=[
+       
+    {
+        codigo:987654,
+        fecha:'30/11/2023',
+        aula:'A4',
+        grupo:'ESO1',
+        ordenador:'PC7',
+        descripcion:'Problema de impresión',
+        alumno:'José Rodríguez',
+        estado: 0,
+    },
+    
+    {
+        codigo:987655,
+        fecha:'01/12/2023',
+        aula:'B2',
+        grupo:'BACH2',
+        ordenador:'PC2',
+        descripcion:'Fallo en la conexión USB',
+        alumno:'María Sánchez',
+        estado: 0,
+    },
+    
+    {
+        codigo:987656,
+        fecha:'02/12/2023',
+        aula:'C1',
+        grupo:'BACH1',
+        ordenador:'PC5',
+        descripcion:'Pérdida de datos en la aplicación',
+        alumno:'Antonio López',
+        estado: 0,
+    },
+    
+    {
+        codigo:987657,
+        fecha:'03/12/2023',
+        aula:'A4',
+        grupo:'ESO2',
+        ordenador:'PC1',
+        descripcion:'Problema con el teclado',
+        alumno:'Isabel Martínez',
+        estado: 0,
+    },
+    
+    {
+        codigo:987658,
+        fecha:'04/12/2023',
+        aula:'B3',
+        grupo:'BACH3',
+        ordenador:'PC4',
+        descripcion:'Error en la conexión a la impresora',
+        alumno:'Francisco García',
+        estado: 0,
+    },
+    
+    {
+        codigo:845672,
+        fecha:'25/06/2023',
+        fecharesuelto:'22/07/2023',
+        aula:'B3',
+        grupo:'BACH3',
+        ordenador:'PC5',
+        descripcion:'Problema de software',
+        alumno:'Elena Fernández',
+        estado: 1,
+    },
+    
+    {
+        codigo:845673,
+        fecha:'26/06/2023',
+        fecharesuelto:'23/07/2023',
+        aula:'A4',
+        grupo:'ESO2',
+        ordenador:'PC4',
+        descripcion:'No se puede acceder a la red interna',
+        alumno:'Carlos Martínez',
+        estado: 1,
+    },
+    
+    {
+        codigo:845674,
+        fecha:'27/06/2023',
+        fecharesuelto:'24/07/2023',
+        aula:'C1',
+        grupo:'BACH1',
+        ordenador:'PC6',
+        descripcion:'Problema con el mouse',
+        alumno:'Laura Sánchez',
+        estado: 1,
+    },
+    {
+        codigo:845675,
+        fecha:'28/06/2023',
+        fecharesuelto:'25/07/2023',
+        aula:'B2',
+        grupo:'BACH2',
+        ordenador:'PC3',
+        descripcion:'No se puede imprimir en color',
+        alumno:'Miguel Torres',
+        estado: 1,
+    },
+        
+    {
+        codigo:845676,
+        fecha:'29/06/2023',
+        fecharesuelto:'26/07/2023',
+        aula:'T6',
+        grupo:'DAW1',
+        ordenador:'PC7',
+        descripcion:'Problema con la tarjeta gráfica',
+        alumno:'Carmen García',
+        estado: 1,
+    }
+]

@@ -7,11 +7,11 @@ export const panel = {
     template: //html 
     `
     <h1>Administración de incidencias</h1>
-    <h2 class="mt-5">Tickets pendientes</h2>
+    <h2 id="pendientesH2" class="mt-5">Tickets pendientes</h2>
 
     <div class="text-end"><button type="button" id="btnAñadirTicket" class="btn btn-primary text-light"> Añadir Ticket </button></div>
     
-    <table class="table mt-4">
+    <table id="pendientesTable" class="table mt-4">
       <thead>
         <tr>
           <th>Código</th>
@@ -32,8 +32,8 @@ export const panel = {
       </tbody>
     </table>
     
-    <h2 class="mt-5">Tickets resueltos</h2>
-    <table class="table mt-4">
+    <h2 id="resueltosH2" class="mt-5">Tickets resueltos</h2>
+    <table id="resueltosTable" class="table mt-4">
       <thead>
         <tr>
           <th>Código</th>
@@ -95,6 +95,7 @@ export const panel = {
       document.querySelector('#login').classList.add('d-none')
       document.querySelector('#registro').classList.add('d-none')
       document.querySelector('#sesion').classList.remove('d-none')
+
       let ticketsPendientes=document.querySelector('#pendientes')
       let ticketsResueltos=document.querySelector('#resueltos')
       let tablaPendiente= ``
@@ -155,56 +156,110 @@ export const panel = {
 
       })
 
-      let usuario = localStorage.getItem("usuarios")
-      usuario = JSON.parse(usuario);
+      document.querySelector('#sesion').addEventListener('click', (event) => {
 
-      for(let i=0;i<usuario.length;i++){
-        if(document.querySelector('#correo').innerHTML== usuario[i].mail ){
-          usuario[i].log = 0
-          localStorage.setItem("usuarios", JSON.stringify(usuario))
-        }
-      }
+        event.preventDefault()
+        document.querySelector('#correo').innerHTML="";
+        document.querySelector('#sesion').classList.add('d-none');
 
-        document.querySelector('#sesion').addEventListener('click', (event) => {
-          event.preventDefault()
-          document.querySelector('#correo').innerHTML="";
-          document.querySelector('#sesion').classList.add('d-none');
+        document.querySelector('#login').classList.remove('d-none');
+        document.querySelector('#registro').classList.remove('d-none');
 
-          document.querySelector('#login').classList.remove('d-none');
-          document.querySelector('#registro').classList.remove('d-none');
+        document.querySelector('main').innerHTML= login.template;
+        login.script()
 
-          document.querySelector('main').innerHTML= login.template;
-          login.script()
-        })
+      })
       
-        document.querySelector('body').addEventListener('click', (e) => {
+      document.querySelector('body').addEventListener('click', (e) => {
 
-            if(e.target.id == 'btnResolver'){
-              console.log('completar', e.target.id)
-              Resolver(e, ticketsPendientes, ticketsResueltos)
-            }
+        const correoEsquina = document.querySelector('#correo').textContent
+        let usuario = localStorage.getItem("usuarios")
+        usuario = JSON.parse(usuario)
+        const coincidencia = usuario.find(usuario => usuario.mail === correoEsquina)
 
-            if(e.target.id == 'btnEdit'){
-              console.log('editar', e.target.id)
-              Editar(e, ticketsPendientes, ticketsResueltos)
-            }
 
-            if(e.target.id == 'btnComment'){
-              console.log('completar', e.target.id)
-              Comentar(e, ticketsPendientes, ticketsResueltos)
-            }
-    
+        if (coincidencia.rol == 0) {
 
-            if(e.target.id == 'btnEliminar'){
-              console.log('borrar', e.target.id)
-              Eliminar(e, ticketsPendientes, ticketsResueltos)
-            }
+          if (!document.querySelector('#pendientesH2').classList.contains('d-none')) {
+            document.querySelector('#pendientesH2').classList.add('d-none')
+          }
+          
+          if (!document.querySelector('#pendientesTable').classList.contains('d-none')) {
+              document.querySelector('#pendientesTable').classList.add('d-none')
+          }
+          
+          if (!document.querySelector('#resueltosH2').classList.contains('d-none')) {
+              document.querySelector('#resueltosH2').classList.add('d-none')
+          }
+          
+          if (!document.querySelector('#resueltosTable').classList.contains('d-none')) {
+              document.querySelector('#resueltosTable').classList.add('d-none')
+          }
+          
+        }
 
-            if(e.target.id == 'btnAñadirTicket'){
-              document.querySelector('main').innerHTML= vistaTicket.template;
-              vistaTicket.script()
-            }
-    
-        })
+        if (coincidencia.rol == 1) {
+
+          let btnEliminarElements = document.querySelectorAll('#btnEliminar')
+
+          btnEliminarElements.forEach(function(element) {
+              if (!element.classList.contains('d-none')) {
+                  element.classList.add('d-none')
+              }
+          })
+      
+         
+          let btnResolverElements = document.querySelectorAll('#btnResolver')
+
+          btnResolverElements.forEach(function(element) {
+              if (!element.classList.contains('d-none')) {
+                  element.classList.add('d-none')
+              }
+          })
+
+          let btnEditElements = document.querySelectorAll('#btnEdit')
+
+          btnEditElements.forEach(function(element) {
+              if (!element.classList.contains('d-none')) {
+                  element.classList.add('d-none')
+              }
+          })
+        }
+      
+
+        if(coincidencia.rol == 2) {
+              
+          if(e.target.id == 'btnResolver'){
+            console.log('completar', e.target.id)
+            Resolver(e, ticketsPendientes, ticketsResueltos)
+          }
+
+          if(e.target.id == 'btnEdit'){
+            console.log('editar', e.target.id)
+            Editar(e, ticketsPendientes, ticketsResueltos)
+          }
+
+          if(e.target.id == 'btnEliminar'){
+            console.log('borrar', e.target.id)
+            Eliminar(e, ticketsPendientes, ticketsResueltos)
+          }
+
+        }
+
+        if(coincidencia.rol == 2 || coincidencia.rol == 1) {
+
+          if(e.target.id == 'btnComment'){
+            console.log('completar', e.target.id)
+            Comentar(e)
+          }
+
+        }
+
+        if(e.target.id == 'btnAñadirTicket'){
+          document.querySelector('main').innerHTML= vistaTicket.template;
+          vistaTicket.script()
+        }
+
+      })
     }
 }

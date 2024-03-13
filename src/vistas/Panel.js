@@ -159,6 +159,20 @@ export const panel = {
       document.querySelector('#sesion').addEventListener('click', (event) => {
 
         event.preventDefault()
+
+        const correo = document.querySelector('#correo').innerHTML
+        
+        let usuariosGuardados = localStorage.getItem("usuarios")
+        usuariosGuardados = JSON.parse(usuariosGuardados)
+
+        const usuarioLogueadoEncontrado = usuariosGuardados.find(usuari => usuari.mail == correo)
+        const IDusuarioLogueadoEncontrado = usuariosGuardados.findIndex(usuari => usuari.mail == correo)
+
+        if(usuarioLogueadoEncontrado){
+          usuariosGuardados[IDusuarioLogueadoEncontrado].log = 0
+          localStorage.setItem("usuarios", JSON.stringify(usuariosGuardados))
+        }
+
         document.querySelector('#correo').innerHTML="";
         document.querySelector('#sesion').classList.add('d-none');
 
@@ -230,17 +244,14 @@ export const panel = {
         if(coincidencia.rol == 2) {
               
           if(e.target.id == 'btnResolver'){
-            console.log('completar', e.target.id)
             Resolver(e, ticketsPendientes, ticketsResueltos)
           }
 
           if(e.target.id == 'btnEdit'){
-            console.log('editar', e.target.id)
             Editar(e, ticketsPendientes, ticketsResueltos)
           }
 
           if(e.target.id == 'btnEliminar'){
-            console.log('borrar', e.target.id)
             Eliminar(e, ticketsPendientes, ticketsResueltos)
           }
 
@@ -249,7 +260,6 @@ export const panel = {
         if(coincidencia.rol == 2 || coincidencia.rol == 1) {
 
           if(e.target.id == 'btnComment'){
-            console.log('completar', e.target.id)
             Comentar(e)
           }
 

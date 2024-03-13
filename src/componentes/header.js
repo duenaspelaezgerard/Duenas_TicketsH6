@@ -23,27 +23,24 @@ export const header = {
 
     script : ()=>{
 
-      let usuarios = []
-
-      localStorage.setItem("usuarios", JSON.stringify(usuarios))
-
-      usuarios = localStorage.getItem("usuarios")
+      let usuarios = localStorage.getItem("usuarios")
 
       if (usuarios) {
         usuarios = JSON.parse(usuarios)
+
+        for(let i=0;i<usuarios.length;i++){
+          if(usuarios[i].log == 1){
+            document.querySelector('main').innerHTML= panel.template
+            document.querySelector('#correo').innerHTML= usuarios[i].mail
+            panel.script()
+          }
+        }
+
       } else {
         usuarios = []
+        localStorage.setItem("usuarios", JSON.stringify(usuarios))
       } 
 
-      localStorage.setItem("usuarios", JSON.stringify(usuarios))
-
-      for(let i=0;i<usuarios.length;i++){
-        if(usuarios[i].log == 1){
-          document.querySelector('main').innerHTML= panel.template
-          document.querySelector('#correo').innerHTML= usuarios[i].mail
-          panel.script()
-        }
-      }
 
       document.querySelector('#login').addEventListener('click', () => {
         document.querySelector('main').innerHTML= login.template

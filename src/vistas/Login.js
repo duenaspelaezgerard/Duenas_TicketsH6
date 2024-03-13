@@ -13,11 +13,11 @@ export const login = {
               <form action="proyectos.html">
                 <div class="mb-3">
                   <label for="InputEmail1" class="form-label">Email:</label>
-                  <input id="email" type="email" class="form-control" aria-describedby="emailHelp" >
+                  <input id="email" type="text" class="form-control" aria-describedby="emailHelp" >
                 </div>
                 <div class="mb-3">
                   <label for="InputPassword1" class="form-label">Contraseña: </label>
-                  <input id="contrase" type="password" class="form-control">
+                  <input id="contra" type="text" class="form-control">
                 </div>
                 <div class="mb-3 form-check">
                   <input type="checkbox" class="form-check-input" id="Check1">
@@ -40,55 +40,52 @@ export const login = {
     `,
     script : ()=>{
 
-        let email = document.querySelector('#email')
-        let contraenya = document.querySelector('#contrase')
-
         document.querySelector('#butLogin').addEventListener('click', (event) => {
-        event.preventDefault()
 
-        let correo= email.value
-        let password= contraenya.value
+          event.preventDefault()
 
-        let usuario = localStorage.getItem("usuarios")
+          let usuariosLS = localStorage.getItem("usuarios")
+          let correo= document.querySelector('#email').value
+          let password = document.querySelector('#contra').value
+        
+          console.log('correo ',correo )
+          console.log('password', password )
 
-        if (!usuario) {
-          usuario = []
-        } else {
-          usuario = JSON.parse(usuario)
-        }
-
-          let error = 0
-
-        for(let i=0;i<usuario.length;i++){
-
-          if(correo == usuario[i].mail && password == usuario[i].pass){
-            usuario[i].log = 1
-            localStorage.setItem("usuarios", JSON.stringify(usuario))
-
-            document.querySelector('main').innerHTML= panel.template;
-            panel.script()
-              
-            i=usuario.length;
-
-            alert("Inicio de sesión exitoso")
-
-            document.querySelector('#correo').innerHTML=correo;
-            document.querySelector('#sesion').classList.remove('d-none');
-          }else{
-            error++
+          if (usuariosLS) {
+            usuariosLS = JSON.parse(usuariosLS)
+          } else {
+            usuariosLS = []
           }
-        }
+          
+          let error = 0
+          usuariosLS.forEach(element => {
 
-          if(error==usuario.length){
+            if((element.mail == correo)&& (element.pass == password) ){
+
+              element.log = 1              
+              document.querySelector('main').innerHTML= panel.template;
+              panel.script()            
+              alert("Inicio de sesión exitoso")
+              document.querySelector('#correo').innerHTML=correo;
+              document.querySelector('#sesion').classList.remove('d-none')
+            }else{
+              error++
+            }
+
+          })
+
+          localStorage.setItem("usuarios", JSON.stringify(usuariosLS))
+          
+          if(error==usuariosLS.length){
             alert("Inicio de sesión equivocado")
           }
 
-        });
+        })
 
         document.querySelector('#butRegistro').addEventListener('click', (event) => {
           event.preventDefault()
           document.querySelector('main').innerHTML= registro.template;
           registro.script()
-        });
+        })
     }
 }

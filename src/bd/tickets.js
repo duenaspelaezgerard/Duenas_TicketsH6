@@ -1,6 +1,7 @@
 export const tickets=[
        
-    {
+    {   
+        id:1,
         codigo:987654,
         fecha:'30/11/2023',
         aula:'A4',
@@ -12,6 +13,7 @@ export const tickets=[
     },
     
     {
+        id:2,
         codigo:987655,
         fecha:'01/12/2023',
         aula:'B2',
@@ -23,6 +25,7 @@ export const tickets=[
     },
     
     {
+        id:3,
         codigo:987656,
         fecha:'02/12/2023',
         aula:'C1',
@@ -34,6 +37,7 @@ export const tickets=[
     },
     
     {
+        id:4,
         codigo:987657,
         fecha:'03/12/2023',
         aula:'A4',
@@ -45,6 +49,7 @@ export const tickets=[
     },
     
     {
+        id:5,
         codigo:987658,
         fecha:'04/12/2023',
         aula:'B3',
@@ -56,6 +61,7 @@ export const tickets=[
     },
     
     {
+        id:6,
         codigo:845672,
         fecha:'25/06/2023',
         fecharesuelto:'22/07/2023',
@@ -68,6 +74,7 @@ export const tickets=[
     },
     
     {
+        id:7,
         codigo:845673,
         fecha:'26/06/2023',
         fecharesuelto:'23/07/2023',
@@ -80,6 +87,7 @@ export const tickets=[
     },
     
     {
+        id:8,
         codigo:845674,
         fecha:'27/06/2023',
         fecharesuelto:'24/07/2023',
@@ -91,6 +99,7 @@ export const tickets=[
         estado: 1,
     },
     {
+        id:9,
         codigo:845675,
         fecha:'28/06/2023',
         fecharesuelto:'25/07/2023',
@@ -103,6 +112,7 @@ export const tickets=[
     },
         
     {
+        id:10,
         codigo:845676,
         fecha:'29/06/2023',
         fecharesuelto:'26/07/2023',

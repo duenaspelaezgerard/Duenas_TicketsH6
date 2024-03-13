@@ -1,12 +1,16 @@
 import { tickets } from "../bd/tickets.js";
-import { registro } from "../vistas/Registro";
 import { login } from "./Login.js";
+import { Resolver, Editar, Eliminar, Comentar } from "../componentes/funciones.js";
+import { vistaTicket } from "./vistaTicket.js";
 
 export const panel = {
     template: //html 
     `
     <h1>Administración de incidencias</h1>
     <h2 class="mt-5">Tickets pendientes</h2>
+
+    <div class="text-end"><button type="button" id="btnAñadirTicket" class="btn btn-primary text-light"> Añadir Ticket </button></div>
+    
     <table class="table mt-4">
       <thead>
         <tr>
@@ -24,100 +28,7 @@ export const panel = {
       </thead>
 
       <tbody id="pendientes">
-        <tr>
-          <td>123459</td>
-          <td>18/04/2023</td>
-          <td>T6</td>
-          <td>DAW1</td>
-          <td>PC3</td>
-          <td>Error de impresora</td>
-          <td>Ana Martínez</td>
-          <td><button class="btn btn-success" title="Resolver ticket">Resolver</button></td>
-          <td><button class="btn btn-warning" title="Añadir comentario"><i class="bi  bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-          </button>
-          </td>
-          <td><button class="btn btn-info" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
-          </button></td>
-          <td><button class="btn btn-danger" title="Eliminar ticket"><i class="bi bi-trash3"></i>
-          </i>
-          </button></td>
 
-        </tr>
-
-        <tr>
-          <td>123460</td>
-          <td>19/04/2023</td>
-          <td>T8</td>
-          <td>DAW2</td>
-          <td>PC4</td>
-          <td>Problema de acceso a archivos</td>
-          <td>Pedro Gómez</td>
-          <td><button class="btn btn-success" title="Resolver ticket">Resolver</button></td>
-          <td><button class="btn btn-warning" title="Añadir comentario"><i class="bi  bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-          </button>
-          </td>
-          <td><button class="btn btn-info" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
-          </button></td>
-          <td><button class="btn btn-danger" title="Eliminar ticket"><i class="bi bi-trash3"></i>
-          </i>
-          </button></td>
-
-        </tr>
-        <tr>
-          <td>123461</td>
-          <td>20/04/2023</td>
-          <td>T6</td>
-          <td>DAW1</td>
-          <td>PC1</td>
-          <td>Aplicación se cierra inesperadamente</td>
-          <td>Sofía Fernández</td>
-          <td><button class="btn btn-success" title="Resolver ticket">Resolver</button></td>
-          <td><button class="btn btn-warning" title="Añadir comentario"><i class="bi  bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-          </button>
-          </td>
-          <td><button class="btn btn-info" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
-          </button></td>
-          <td><button class="btn btn-danger" title="Eliminar ticket"><i class="bi bi-trash3"></i>
-          </i>
-          </button></td>
-
-        </tr>
-        <tr>
-          <td>123462</td>
-          <td>21/04/2023</td>
-          <td>T7</td>
-          <td>DAW2</td>
-          <td>PC2</td>
-          <td>Problema de conexión a la red</td>
-          <td>Luis Torres</td>
-          <td><button class="btn btn-success" title="Resolver ticket">Resolver</button></td>
-          <td><button class="btn btn-warning" title="Añadir comentario"><i class="bi  bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-          </button>
-          </td>
-          <td><button class="btn btn-info" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
-          </button></td>
-          <td><button class="btn btn-danger" title="Eliminar ticket"><i class="bi bi-trash3"></i>
-          </i>
-          </button></td>
-        </tr>
-        <tr>
-          <td>123463</td>
-          <td>22/04/2023</td>
-          <td>T8</td>
-          <td>DAW1</td>
-          <td>PC3</td>
-          <td>Archivos corruptos</td>
-          <td>Carolina Ramírez</td>
-          <td><button class="btn btn-success" title="Resolver ticket">Resolver</button></td>
-          <td><button class="btn btn-warning" title="Añadir comentario"><i class="bi  bi-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-          </button>
-          </td>
-          <td><button class="btn btn-info" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
-          </button></td>
-          <td><button class="btn btn-danger" title="Eliminar ticket"><i class="bi bi-trash3"></i>
-          </i>
-          </button></td>
-        </tr>
       </tbody>
     </table>
     
@@ -137,62 +48,55 @@ export const panel = {
       </thead>
 
       <tbody id="resueltos">
-        <tr>
-          <td>123457</td>
-          <td>16/04/2023</td>
-          <td>15/05/2023</td>
-          <td>T7</td>
-          <td>DAW2</td>
-          <td>PC1</td>
-          <td>Problema de conexión a Internet</td>
-          <td>Maria López</td>
-          
-          <td><button class="btn btn-info" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
-          </button></td>
-          <td><button class="btn btn-danger" title="Eliminar ticket"><i class="bi bi-trash3"></i>
-          </i>
-          </button></td>
-        </tr>
-        <tr>
-          <td>123458</td>
-          <td>17/04/2023</td>
-          <td>15/05/2023</td>
-          <td>T8</td>
-          <td>DAW1</td>
-          <td>PC2</td>
-          <td>Pantalla en blanco</td>
-          <td>Juan Rodríguez</td>
-          <td><button class="btn btn-info" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
-          </button></td>
-          <td><button class="btn btn-danger" title="Eliminar ticket"><i class="bi bi-trash3"></i>
-          </i>
-          </button></td>
-        </tr>
-        <tr>
-          <td>123459</td>
-          <td>18/04/2023</td>
-          <td>15/05/2023</td>
-          <td>T8</td>
-          <td>DAW1</td>
-          <td>PC3</td>
-          <td>Error de impresora</td>
-          <td>Ana Martínez</td>
-          <td><button class="btn btn-info" title="Ver comentarios"><i class="bi bi-chat-left-text"></i>
-          </button></td>
-          <td><button class="btn btn-danger" title="Eliminar ticket"><i class="bi bi-trash3"></i>
-          </i>
-          </button></td>
-        </tr>
+      
       </tbody>
     </table>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Editar Ticket</h5>
+            <button type="button" id="btnCerrar" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="" class="form card p-3 shadow" id="editarForm">
+              <label for="codigoTicket" class="form-label">Código: </label>
+              <input type="text" class="form-control mb-3" id="codigo">
+
+              <label for="fecha" class="form-label">Fecha: </label>
+              <input type="date" class="form-control mb-3" id="fecha">
+
+              <label for="aula" class="form-label">Aula: </label>
+              <input type="text" class="form-control mb-3" id="aula">
+
+              <label for="ordenador" class="form-label">Ordenador: </label>
+              <input type="text" class="form-control mb-3" id="ordenador">
+
+              <label for="descripcion" class="form-label">Descripción: </label>
+              <textarea class="form-control mb-3" id="descripcion" rows="3"></textarea>
+
+              <label for="alumno" class="form-label">Alumno: </label>
+              <input type="text" class="form-control mb-3" id="alumno">
+
+              <label for="grupo" class="form-label">Grupo: </label>
+              <input type="text" class="form-control mb-3" id="grupo">
+
+              <div class="d-flex align-items-center">
+                <button id="btnEditarTicket" class="btn btn-success ms-auto">Guardar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+    </div>
     `,
     script : ()=>{
 
-      document.querySelector('#login').classList.add('d-none');
-      document.querySelector('#registro').classList.add('d-none');
-      document.querySelector('#sesion').classList.remove('d-none');
-      let ticketsPendientes=document.querySelector('#pendientes');
-      let ticketsResueltos=document.querySelector('#resueltos');
+      document.querySelector('#login').classList.add('d-none')
+      document.querySelector('#registro').classList.add('d-none')
+      document.querySelector('#sesion').classList.remove('d-none')
+      let ticketsPendientes=document.querySelector('#pendientes')
+      let ticketsResueltos=document.querySelector('#resueltos')
       let tablaPendiente= ``
       let tablaResuelto =``
 
@@ -201,7 +105,7 @@ export const panel = {
           if(item.estado==0){
 
             tablaPendiente= `
-            <tr data-ticketid=${item.id}>
+            <tr data-ticketid=${item.id} class="ticket">
               <td>${item.codigo}</td>
               <td>${item.fecha}</td>
               <td>${item.aula}</td>
@@ -228,7 +132,7 @@ export const panel = {
 
             tablaResuelto= `
 
-              <tr data-ticketid=${item.id}>
+              <tr data-ticketid=${item.id} class="ticket">
                 <td>${item.codigo}</td>
                 <td>${item.fecha}</td>
                 <td>${item.fecharesuelto}</td>
@@ -271,7 +175,7 @@ export const panel = {
 
           document.querySelector('main').innerHTML= login.template;
           login.script()
-        });
+        })
       
         document.querySelector('body').addEventListener('click', (e) => {
 
@@ -294,6 +198,11 @@ export const panel = {
             if(e.target.id == 'btnEliminar'){
               console.log('borrar', e.target.id)
               Eliminar(e, ticketsPendientes, ticketsResueltos)
+            }
+
+            if(e.target.id == 'btnAñadirTicket'){
+              document.querySelector('main').innerHTML= vistaTicket.template;
+              vistaTicket.script()
             }
     
         })

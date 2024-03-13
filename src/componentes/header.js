@@ -22,27 +22,38 @@ export const header = {
     `,
 
     script : ()=>{
-  
-      let usuario = localStorage.getItem("usuarios")
-      usuario = JSON.parse(usuario);
 
-      for(let i=0;i<usuario.length;i++){
-        if(usuario[i].log == 1){
-          document.querySelector('main').innerHTML= panel.template;
-          document.querySelector('#correo').innerHTML= usuario[i].mail;
+      let usuarios = []
+
+      localStorage.setItem("usuarios", JSON.stringify(usuarios))
+
+      usuarios = localStorage.getItem("usuarios")
+
+      if (usuarios) {
+        usuarios = JSON.parse(usuarios)
+      } else {
+        usuarios = []
+      } 
+
+      localStorage.setItem("usuarios", JSON.stringify(usuarios))
+
+      for(let i=0;i<usuarios.length;i++){
+        if(usuarios[i].log == 1){
+          document.querySelector('main').innerHTML= panel.template
+          document.querySelector('#correo').innerHTML= usuarios[i].mail
           panel.script()
         }
       }
 
       document.querySelector('#login').addEventListener('click', () => {
-        document.querySelector('main').innerHTML= login.template;
+        document.querySelector('main').innerHTML= login.template
         login.script()
-      });
+      })
 
       document.querySelector('#registro').addEventListener('click', () => {
-        document.querySelector('main').innerHTML= registro.template;
+        document.querySelector('main').innerHTML= registro.template
         registro.script()
-      });
+      })
 
     } 
 }
